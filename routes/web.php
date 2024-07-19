@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,13 +15,40 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Auth
-Route::get("/auth/login", function () {
-    return view("pages.auth.login");
-})->name("login");
-Route::get("/auth/register", function () {
-    return view("pages.auth.register");
-})->name("register");
+Route::get("/login", [AuthController::class, "showLoginForm"])
+    ->name("login-index")
+    ->middleware("guest");
+Route::post("/login", [AuthController::class, "login"])
+    ->name("login")
+    ->middleware("guest");
+
+Route::get("/register", [AuthController::class, "showRegistrationForm"])
+    ->name("register-index")
+    ->middleware("guest");
+Route::post("/register", [AuthController::class, "register"])
+    ->name("register")
+    ->middleware("guest");
+
+Route::post("/logout", [AuthController::class, "logout"])->name("logout");
 
 Route::get("/", function () {
     return view("welcome");
+});
+
+Route::middleware(["auth", "role:admin"])->group(function () {
+    Route::get("/admin/dashboard", function () {
+        return view("pages.admin.index");
+    });
+});
+
+Route::middleware(["auth", "role:user"])->group(function () {
+    Route::get("/user/dashboard", function () {
+        return view("pages.user.index");
+    });
+});
+
+Route::middleware(["auth", "role:superadmin"])->group(function () {
+    Route::get("/superadmin/dashboard", function () {
+        return view("pages.superadmin.index");
+    });
 });

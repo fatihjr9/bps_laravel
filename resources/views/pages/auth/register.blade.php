@@ -1,26 +1,39 @@
 @extends('layouts.auth')
 @section('content')
-<form class="w-full">
+<form action="{{ route('register') }}" method="POST" enctype="multipart/form-data" class="w-full">
+    @csrf
     <div class="flex flex-col space-y-3 mt-2 mb-4">
         <div>
             <label for="name" class="block mb-1 text-sm font-medium text-gray-900">Nama</label>
-            <input type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="john.doe" required />
+            <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="john.doe" required />
         </div>
         <div>
             <label for="email" class="block mb-1 text-sm font-medium text-gray-900">Email</label>
-            <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="john.doe@company.com" required />
+            <input type="email" id="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="john.doe@company.com" required />
         </div>
-        <div>
-            <label for="email" class="block mb-1 text-sm font-medium text-gray-900">Role</label>
-            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                <option value="pimpinan">Pimpinan</option>
-                <option value="admin">Admin</option>
-                <option value="pegawai">Pegawai</option>
+        @php
+            $admin = \App\Models\User::where('role', 'admin')->exists();
+            $superAdmin = \App\Models\User::where('role', 'superadmin')->exists();
+        @endphp
+        @if (!$superAdmin)
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900">Role</label>
+                <select id="role" class="block py-2 mt-1 w-full rounded-md border border-gray-300" type="select" name="role" required>
+                    <option value="superadmin" selected>Super Admin</option>
+                </select>
+            </div>
+        @elseif($superAdmin && !$admin)
+            <select id="role" class="hidden mt-1 py-2 w-full rounded-md border border-gray-300" type="select" name="role" required>
+                <option value="admin" selected>Admin</option>
             </select>
-        </div>
+        @elseif($superAdmin && $admin)
+            <select id="role" class="hidden mt-1 py-2 w-full rounded-md border border-gray-300" type="select" name="role" required>
+                <option value="user" selected>User</option>
+            </select>
+        @endif
         <div>
             <label for="password" class="block mb-1 text-sm font-medium text-gray-900">Password</label>
-            <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="john.doe@company.com" required />
+            <input type="password" id="password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="john.doe@company.com" required />
         </div>
     </div>
     <button type="submit" class="text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full py-2.5">Daftar</button>

@@ -36,16 +36,15 @@
                 </a>
              </li>
           </ul>
-          <ul class="space-y-2 font-medium border-t border-gray-700 pt-2">
+          <ul class="space-y-2 bg-gray-400 font-medium border-t border-gray-700 pt-2">
              <li>
-                <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                   <span class="flex-1 whitespace-nowrap">Sign In</span>
-                </a>
+                 <p class="p-2 text-white">Halo, {{ Auth::user()->name }}</p>
              </li>
              <li>
-                <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                   <span class="flex-1 whitespace-nowrap">Sign Up</span>
-                </a>
+                 <form method="POST" action="{{ route('logout') }}" class="px-4 py-2 hover:bg-gray-100">
+                   @csrf
+                   <button type="submit" class="text-black">Logout</button>
+                 </form>
              </li>
           </ul>
        </div>
