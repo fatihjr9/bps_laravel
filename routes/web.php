@@ -39,6 +39,14 @@ Route::middleware(["auth", "role:admin"])->group(function () {
     Route::get("/admin/dashboard", function () {
         return view("pages.admin.index");
     });
+    // Data Pegawai
+    Route::get("/admin/data-pegawai", function () {
+        return view("pages.admin.pegawai.index");
+    })->name("admin-pegawai-index");
+    // Data Pengajuan
+    Route::get("/admin/data-pengajuan", function () {
+        return view("pages.admin.pengajuan.index");
+    })->name("admin-pengajuan-index");
 });
 
 Route::middleware(["auth", "role:user"])->group(function () {
