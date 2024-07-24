@@ -17,9 +17,9 @@
     </button>
 
     <aside id="logo-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-       <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-slate-800">
-          <img src= "{{ asset('/bps.png') }}" class="w-28 pb-4" />
-          <div class="flex flex-col justify-between">
+       <div class="h-full px-3 py-6 overflow-y-auto bg-gray-50 dark:bg-slate-800 flex flex-col justify-between">
+          <div class="">
+              <img src= "{{ asset('/bps.png') }}" class="w-24 pb-4" />
               <ul class="space-y-2 font-medium border-t border-gray-700 py-2">
                   @if(Auth::user()->role == 'superadmin')
                     <li>
@@ -28,7 +28,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <a href="{{ route('sa-pengajuan-idx') }}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group {{ request()->routeIs('sa-pengajuan-idx') ? 'bg-gray-700 p-2' : '' }}">
                             <span class="">Kelola Pengajuan</span>
                         </a>
                     </li>
@@ -65,34 +65,30 @@
                     </li>
                   @else
                     <li>
-                        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <span class="">Dashboard</span>
+                        <a href="{{ route('user-dashboard-index') }}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group {{ request()->routeIs('user-dashboard-index') ? 'bg-gray-700 p-2' : '' }}">
+                            <span>Dashboard</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <span class="">Pengajuan</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <span class="">Cetak File</span>
+                        <a href="{{ route('user-pengajuan-index') }}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group {{ request()->routeIs('user-pengajuan-index') ? 'bg-gray-700 p-2' : '' }}">
+                            <span>Pengajuan</span>
                         </a>
                     </li>
                   @endif
               </ul>
-              <ul class="space-y-2 bg-slate-700 rounded-xl p-2 font-medium border-t border-gray-700 pt-2">
-                 <li>
-                     <p class="p-2 text-white">Halo, {{ Auth::user()->name }}</p>
-                 </li>
-                 <li>
-                     <form method="POST" action="{{ route('logout') }}" class="p-2 hover:bg-slate-600 rounded-xl">
-                       @csrf
-                       <button type="submit" class="text-white w-full text-left">Logout</button>
-                     </form>
-                 </li>
-              </ul>
           </div>
+
+          <ul class="space-y-2 bg-slate-700 rounded-xl p-2 font-medium border-t border-gray-700 pt-2">
+             <li>
+                 <p class="p-2 text-white">Halo, {{ Auth::user()->name }}</p>
+             </li>
+             <li>
+                 <form method="POST" action="{{ route('logout') }}" class="p-2 hover:bg-slate-600 rounded-xl">
+                   @csrf
+                   <button type="submit" class="text-white w-full text-left">Logout</button>
+                 </form>
+             </li>
+          </ul>
        </div>
     </aside>
 

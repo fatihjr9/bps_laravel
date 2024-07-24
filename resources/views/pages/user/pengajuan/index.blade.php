@@ -1,8 +1,11 @@
 @extends('layouts.global')
 
 @section('content')
-<h5 class="text-2xl font-bold">Kelola Pengajuan Perjalanan Dinas</h5>
-<div class="grid grid-cols-1 gap-4 mt-6">
+<div class="flex flex-row items-center justify-between">
+    <h5 class="text-2xl font-bold">Pengajuan Perjalanan Dinas</h5>
+    <a href="{{ route('user-pengajuan-create') }}" class="px-4 py-2 bg-black text-white rounded-xl">+ Tambah Pengajuan</a>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-1 gap-4 mt-6">
     @foreach($pengajuans as $pengajuan)
     <div class="bg-slate-50 p-4 rounded-md border shadow-sm border-slate-200">
         <div class="flex flex-row items-center justify-between mb-2 border-slate-200">
@@ -52,20 +55,14 @@
             </div>
         </div>
         @if($pengajuan->status === "Menunggu Persetujuan")
-            <div class="flex flex-col space-y-2">
-                <form action="{{ route('sa-pengajuan-acc', $pengajuan->id) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="bg-green-700 hover:bg-green-800 transition-all text-green-100 font-medium text-center w-full p-2 rounded-xl">Terima Pengajuan</button>
-                </form>
-                <form action="{{ route('sa-pengajuan-tlk', $pengajuan->id) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="bg-slate-200 hover:bg-slate-300 transition-all text-slate-800 text-center w-full p-2 rounded-xl">Tolak Pengajuan</button>
-                </form>
-            </div>
+            <div class="w-full bg-orange-50 text-orange-600 py-2 rounded-xl">Menunggu Persetujuan</div>
         @elseif($pengajuan->status === "Ditolak")
             <div class="w-full bg-red-50 text-red-600 py-2 rounded-xl">Pengajuan ditolak</div>
         @else
-            <div class="w-full bg-green-50 text-green-600 py-2 rounded-xl">Pengajuan diterima</div>
+            <div class="grid grid-cols-2 gap-4">
+                <a href="" class="bg-blue-100 text-blue-800 font-medium text-center w-full p-2 rounded-xl">Cetak SPT</a>
+                <a href="" class="bg-green-100 text-green-800 font-medium text-center w-full p-2 rounded-xl">Cetak Kwitansi</a>
+            </div>
         @endif
     </div>
     @endforeach

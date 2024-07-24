@@ -12,7 +12,6 @@ return new class extends Migration {
     {
         Schema::create("pengajuans", function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("user_id");
             $table->string("judul");
             $table->string("tujuan");
             $table->string("deskripsi");
@@ -20,7 +19,7 @@ return new class extends Migration {
             $table->integer("akomodasi_perorangan");
             $table->integer("akomodasi_transportasi");
             $table->integer("akomodasi_penginapan");
-            $table->integer("akomodasi_lainnya")->default("-");
+            $table->integer("akomodasi_lainnya")->nullable();
             $table->date("tgl_mulai");
             $table->date("tgl_selesai");
             $table->string("status")->default("Menunggu Persetujuan");

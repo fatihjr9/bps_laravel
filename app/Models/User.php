@@ -18,9 +18,14 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = ["name", "email", "password", "role"];
-    public function pengajuan()
+    public function pengajuans()
     {
-        return $this->hasMany(Pengajuan::class);
+        return $this->belongsToMany(
+            Pengajuan::class,
+            "pengajuan_user",
+            "user_id",
+            "pengajuan_id"
+        );
     }
     /**
      * The attributes that should be hidden for serialization.

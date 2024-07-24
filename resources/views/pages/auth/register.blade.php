@@ -18,16 +18,16 @@
         @if (!$superAdmin)
             <div>
                 <label class="block mb-2 text-sm font-medium text-gray-900">Role</label>
-                <select id="role" class="block py-2 mt-1 w-full rounded-md border border-gray-300" type="select" name="role" required>
+                <select id="role" class="block p-2 mt-1 w-full rounded-md border border-gray-300" type="select" name="role" required    >
                     <option value="superadmin" selected>Super Admin</option>
                 </select>
             </div>
         @elseif($superAdmin && !$admin)
-            <select id="role" class="hidden mt-1 py-2 w-full rounded-md border border-gray-300" type="select" name="role" required>
+            <select id="role" class="block mt-1 p-2 w-full rounded-md border border-gray-300" type="select" name="role" required>
                 <option value="admin" selected>Admin</option>
             </select>
         @elseif($superAdmin && $admin)
-            <select id="role" class="hidden mt-1 py-2 w-full rounded-md border border-gray-300" type="select" name="role" required>
+            <select id="role" class="hidden mt-1 p-2 w-full rounded-md border border-gray-300" type="select" name="role" required>
                 <option value="user" selected>User</option>
             </select>
         @endif

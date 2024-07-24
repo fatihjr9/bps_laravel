@@ -23,8 +23,13 @@ class Pengajuan extends Model
         "status",
     ];
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(
+            User::class,
+            "pengajuan_user",
+            "pengajuan_id",
+            "user_id"
+        );
     }
 }

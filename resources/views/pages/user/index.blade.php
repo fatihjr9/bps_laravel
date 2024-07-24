@@ -1,4 +1,4 @@
 @extends('layouts.global')
 @section('content')
-<h5 class="text-blue-500">user</h5>
+<h5 class="text-2xl font-bold">Dashboard</h5>
 @endsection

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PengajuanController;
+use App\Http\Controllers\SuperAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,13 +52,37 @@ Route::middleware(["auth", "role:admin"])->group(function () {
 });
 
 Route::middleware(["auth", "role:user"])->group(function () {
+    // Dashboard
     Route::get("/user/dashboard", function () {
         return view("pages.user.index");
-    });
+    })->name("user-dashboard-index");
+    // Pengajuan
+    Route::get("/user/pengajuan", [PengajuanController::class, "index"])->name(
+        "user-pengajuan-index"
+    );
+
+    Route::get("/user/pengajuan/tambah", [
+        PengajuanController::class,
+        "create",
+    ])->name("user-pengajuan-create");
+
+    Route::post("/user/pengajuan/tambah", [
+        PengajuanController::class,
+        "store",
+    ])->name("user-pengajuan-store");
 });
 
 Route::middleware(["auth", "role:superadmin"])->group(function () {
-    Route::get("/superadmin/dashboard", function () {
-        return view("pages.superadmin.index");
-    });
+    Route::get("/superadmin/dashboard", [
+        SuperAdminController::class,
+        "index",
+    ])->name("sa-pengajuan-idx");
+    Route::post("/pengajuan/{id}/accept", [
+        SuperAdminController::class,
+        "accept",
+    ])->name("sa-pengajuan-acc");
+    Route::post("/pengajuan/{id}/reject", [
+        SuperAdminController::class,
+        "reject",
+    ])->name("sa-pengajuan-tlk");
 });
