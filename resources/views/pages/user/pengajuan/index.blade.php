@@ -10,9 +10,15 @@
     <div class="bg-slate-50 p-4 rounded-md border shadow-sm border-slate-200">
         <div class="flex flex-row items-center justify-between mb-2 border-slate-200">
             <h5 class="text-2xl font-semibold">{{ $pengajuan->judul }}</h5>
-            <div class="flex flex-row items-center divide-x">
+            <div class="flex flex-row items-center">
                 <h5 class="pr-4">Lama Kunjungan : {{ $pengajuan->tgl_mulai }} - {{ $pengajuan->tgl_selesai }}</h5>
-                <h5 class="pl-4">Status: {{ $pengajuan->status }}</h5>
+                @if($pengajuan->status === "Menunggu Persetujuan")
+                    <div class="w-fit pl-4 bg-orange-50 text-orange-600 p-2 rounded-xl text-center">{{ $pengajuan->status }}</div>
+                @elseif($pengajuan->status === "Ditolak")
+                    <div class="w-fit pl-4 bg-red-50 text-red-600 p-2 rounded-xl text-center">{{ $pengajuan->status }}</div>
+                @else
+                    <div class="w-fit pl-4 bg-green-100 text-green-600 p-2 rounded-xl text-center">{{ $pengajuan->status }}</div>
+                @endif
             </div>
         </div>
         <div class="grid grid-cols-2 gap-2 divide-x py-4 border-t">
@@ -54,16 +60,6 @@
                 </div>
             </div>
         </div>
-        @if($pengajuan->status === "Menunggu Persetujuan")
-            <div class="w-full bg-orange-50 text-orange-600 py-2 rounded-xl">Menunggu Persetujuan</div>
-        @elseif($pengajuan->status === "Ditolak")
-            <div class="w-full bg-red-50 text-red-600 py-2 rounded-xl">Pengajuan ditolak</div>
-        @else
-            <div class="grid grid-cols-2 gap-4">
-                <a href="" class="bg-blue-100 text-blue-800 font-medium text-center w-full p-2 rounded-xl">Cetak SPT</a>
-                <a href="" class="bg-green-100 text-green-800 font-medium text-center w-full p-2 rounded-xl">Cetak Kwitansi</a>
-            </div>
-        @endif
     </div>
     @endforeach
 </div>

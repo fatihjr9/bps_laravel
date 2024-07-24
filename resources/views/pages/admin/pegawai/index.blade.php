@@ -1,6 +1,6 @@
 @extends('layouts.global')
 @section('content')
-<h5 class="text-2xl font-semibold">Data Pegawai</h5>
+<h5 class="text-2xl font-semibold">Kelola Data Pegawai</h5>
 
 <div class="relative overflow-x-auto mt-8 rounded-xl">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 border rounded-xl">
@@ -21,21 +21,23 @@
             </tr>
         </thead>
         <tbody>
+            @foreach($user as $item)
             <tr class="bg-white border-b">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900">
-                    1
+                    {{ $loop->iteration }}
                 </th>
                 <td class="px-6 py-4">
-                    Silver
+                    {{ $item->name }}
                 </td>
                 <td class="px-6 py-4">
-                    Laptop
+                    {{ $item->email }}
                 </td>
                 <td class="px-6 py-4">
                     <a href="">Edit</a>
                     <button>Hapus</button>
                 </td>
             </tr>
+            @endforeach
         </tbody>
     </table>
 </div>
